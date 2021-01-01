@@ -1,0 +1,96 @@
+# Questions to ask
+# is the binary tree balanced or can it skewed as well, this doesn't affect the solution but it's goot to ask.
+# what should be the out put format.
+# what all data should the linked list node hold? shoul I include depth of tree in each node?.
+# what type  of data does the tree hold? is it int/float/string/object?.
+# what is the range of values in tree?
+# sigly linked list or doubly linked list?
+# can tree nodes have null as data? or is it safe to assume that data will be valid
+# null check on root
+
+from typing import List
+from queue import Queue
+from TreeNode import TreeNode
+from LinkedList import LinkedList
+
+
+# separate nodes at each level to by a level order traversal and with the help of delimiter
+# build a linked list for each level nodes
+# time complexity O(n) space complexity O(n)
+def get_list_depth_two_pass(root: TreeNode) -> List[LinkedList]:
+    q = Queue()
+    q.put(root)
+    q.put(None)
+    node_list: List[List[TreeNode]] = []
+    temp_list: List[TreeNode] = []
+
+    while not q.empty():
+        curr_node = q.get()
+        if curr_node is None:
+            node_list.append(temp_list)
+            temp_list = []
+            if not q.empty():
+                q.put(None)
+            continue
+        temp_list.append(curr_node)
+        if curr_node.left:
+            q.put(curr_node.left)
+        if curr_node.right:
+            q.put(curr_node.right)
+    result: List[LinkedList] = []
+
+    for nodes in node_list:
+        result.append(build_linked_list(nodes))
+    return result
+
+
+# we can avoid the second pass by building the linked list during level order traversal
+def get_list_depth_one_pass(root: TreeNode) -> List[LinkedList]:
+    result, q = [  ], Queue()
+    q.put(root)
+    q.put(None)
+    temp_list = None
+    while not q.empty():
+        curr_node = q.get()
+        if curr_node is None:
+            result.append(temp_list)
+            temp_list = None
+
+        build_temp_list(temp_list,curr_node)
+        if curr_node.left:
+            q.put(curr_node.left)
+        if curr_node.right:
+            q.put(curr_node.right)
+    return result
+
+        
+
+
+
+
+def build_linked_list(tree_nodes: List[TreeNode]) -> LinkedList:
+    result_list: LinkedList = LinkedList()
+    for node in tree_nodes:
+        result_list.insert(node.data)
+    return result_list
+
+
+# driver code
+root = TreeNode("A")
+root.left = TreeNode("B")
+root.right = TreeNode("C")
+root.left.left = TreeNode("D")
+root.left.right = TreeNode("E")
+root.left.left.left = TreeNode("G")
+root.right.right = TreeNode("C")
+root.right.right.left = TreeNode("H")
+root.right.right.right = TreeNode("I")
+
+for linked_list in get_list_depth_two_pass(root):
+    result = []
+    curr = linked_list.head
+    while curr:
+        result.append(curr.data)
+        curr = curr.next
+
+    print(result)
