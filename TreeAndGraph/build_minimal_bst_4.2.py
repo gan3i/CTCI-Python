@@ -14,8 +14,12 @@ class Node:
         self.right = None
         self.left = None
 
-#O(n)
-def build_minimal_height_bst(nums: Node, left: int, right: int) -> Node:
+
+# O(n)
+from typing import List
+
+
+def build_minimal_height_bst(nums: List[int], left: int, right: int) -> Node:
     if left > right:
         return None
     mid = left + (right - left) // 2
@@ -24,24 +28,30 @@ def build_minimal_height_bst(nums: Node, left: int, right: int) -> Node:
     root.right = build_minimal_height_bst(nums, mid + 1, right)
     return root
 
-#O(nlog(n))
+
+# O(nlog(n))
 from bintrees import RBTree
+
+
 def build_minimal_height_bst_bintrees(nums):
     # here SelfBalancingBST would be your implementaion of BST with self balancing property.
-    #tree = SelfBalancingBST()
+    # tree = SelfBalancingBST()
     tree = RBTree()
     for i in nums:
-        tree.insert(i,i)
+        tree.insert(i, i)
     return tree
 
-#O(nlog(n))
+
+# O(nlog(n))
 from sortedcontainers import SortedList
+
+
 def build_minimal_height_bst_sortedlist(nums):
     tree = SortedList()
     for i in nums:
         tree.add(i)
     return tree
-    
+
 
 def get_height(root):
     if not root:
@@ -56,5 +66,3 @@ root = build_minimal_height_bst(nums, 0, len(nums) - 1)
 print(get_height(root))
 print(build_minimal_height_bst_bintrees(nums))
 print(build_minimal_height_bst_sortedlist(nums))
-
-
