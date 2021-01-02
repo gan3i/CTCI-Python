@@ -15,12 +15,12 @@ from LinkedList import LinkedList
 
 #  a modfication of bfs where we travese level by level and build linked list
 def get_list_of_depths_bfs(root: BinaryTreeNode) -> List[LinkedList]:
-    result=[]
-    curr=LinkedList()
+    list_of_depths = []
+    curr = LinkedList()
     curr.insert(root)
-    while len(curr)>0:
-        result.append(curr)
-        parent, curr=curr.head, LinkedList()
+    while len(curr) > 0:
+        list_of_depths.append(curr)
+        parent, curr = curr.head, LinkedList()
         while parent:
             if parent.data.left:
                 curr.insert(parent.data.left)
@@ -28,7 +28,25 @@ def get_list_of_depths_bfs(root: BinaryTreeNode) -> List[LinkedList]:
                 curr.insert(parent.data.right)
             parent = parent.next
 
-    return result
+    return list_of_depths
+
+def get_list_of_depths_dfs(root: BinaryTreeNode) -> List[LinkedList]:
+    def dfs(root, depth, list_of_depths):
+        if root == None:
+            return
+        depth_list = LinkedList()
+        if len(list_of_depths) > depth:
+            depth_list = list_of_depths[depth]
+        else:
+            list_of_depths.append(depth_list)
+        depth_list.insert(root)
+        dfs(root.left, depth + 1, list_of_depths)
+        dfs(root.right, depth + 1, list_of_depths)
+
+    list_of_depths = []
+    dfs(root, 0, list_of_depths)
+    return list_of_depths
+
 
 
 # driver code
@@ -43,6 +61,15 @@ root.right.right.left = BinaryTreeNode("H")
 root.right.right.right = BinaryTreeNode("I")
 
 for linked_list in get_list_of_depths_bfs(root):
+    result = []
+    curr = linked_list.head
+    while curr:
+        result.append(curr.data.data)
+        curr = curr.next
+
+    print(result)
+
+for linked_list in get_list_of_depths_dfs(root):
     result = []
     curr = linked_list.head
     while curr:
