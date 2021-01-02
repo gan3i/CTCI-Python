@@ -13,10 +13,9 @@ from typing import List
 from Nodes import BinaryTreeNode
 from LinkedList import LinkedList
 
-#  a modfication of bfs where we travese level by level and build linked list
+# a modfication of bfs where we travese level by level and build linked list
 def get_list_of_depths_bfs(root: BinaryTreeNode) -> List[LinkedList]:
-    list_of_depths = []
-    curr = LinkedList()
+    list_of_depths, curr = [], LinkedList() 
     curr.insert(root)
     while len(curr) > 0:
         list_of_depths.append(curr)
@@ -30,7 +29,9 @@ def get_list_of_depths_bfs(root: BinaryTreeNode) -> List[LinkedList]:
 
     return list_of_depths
 
-def get_list_of_depths_dfs(root: BinaryTreeNode) -> List[LinkedList]:
+# we can traverse the tree in any order and build the list of depths by tracking the current depth
+# this soution uses dfs/preorder travesral
+def get_list_of_depths(root: BinaryTreeNode) -> List[LinkedList]:
     def dfs(root, depth, list_of_depths):
         if root == None:
             return
@@ -69,7 +70,7 @@ for linked_list in get_list_of_depths_bfs(root):
 
     print(result)
 
-for linked_list in get_list_of_depths_dfs(root):
+for linked_list in get_list_of_depths(root):
     result = []
     curr = linked_list.head
     while curr:
