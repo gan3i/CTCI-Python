@@ -5,9 +5,9 @@ class LinkedList:
         self.size = 0
 
     class ListNode:
-        def __init__(self, data, next=None):
+        def __init__(self, data):
             self.data = data
-            self.next = next
+            self.next = None
 
     def insert(self, data):
         if not self.head:

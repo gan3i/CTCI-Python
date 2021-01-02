@@ -15,7 +15,7 @@ from LinkedList import LinkedList
 
 # a modfication of bfs where we travese level by level and build linked list
 def get_list_of_depths_bfs(root: BinaryTreeNode) -> List[LinkedList]:
-    list_of_depths, curr = [], LinkedList() 
+    list_of_depths, curr = [], LinkedList()
     curr.insert(root)
     while len(curr) > 0:
         list_of_depths.append(curr)
@@ -28,6 +28,7 @@ def get_list_of_depths_bfs(root: BinaryTreeNode) -> List[LinkedList]:
             parent = parent.next
 
     return list_of_depths
+
 
 # we can traverse the tree in any order and build the list of depths by tracking the current depth
 # this soution uses dfs/preorder travesral
@@ -47,7 +48,6 @@ def get_list_of_depths(root: BinaryTreeNode) -> List[LinkedList]:
     list_of_depths = []
     dfs(root, 0, list_of_depths)
     return list_of_depths
-
 
 
 # driver code
@@ -78,3 +78,5 @@ for linked_list in get_list_of_depths(root):
         curr = curr.next
 
     print(result)
+
+
