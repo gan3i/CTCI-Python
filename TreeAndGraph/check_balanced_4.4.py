@@ -19,15 +19,16 @@ def get_height(root):
         return max(get_height(root.left), get_height(root.right)) + 1
 
 
-
 import collections
 
 
 def is_balanced1(root: BinaryTreeNode) -> bool:
-    BalancedStatuswithHeight = collections.namedtuple('BalancedStatusWithHeight', ('balanced', 'height'))
+    BalancedStatuswithHeight = collections.namedtuple(
+        "BalancedStatusWithHeight", ("balanced", "height")
+    )
 
-    def check_balanced(root: BinaryTreeNode) ->bool:
-        if not root: 
+    def check_balanced(root: BinaryTreeNode) -> bool:
+        if not root:
             return BalancedStatuswithHeight(True, -1)
         else:
             left = check_balanced(root.left)
@@ -39,7 +40,7 @@ def is_balanced1(root: BinaryTreeNode) -> bool:
 
             if abs(right.height - left.height) > 1:
                 return BalancedStatuswithHeight(False, 0)
-            
+
             return BalancedStatuswithHeight(True, max(left.height, right.height) + 1)
 
     return check_balanced(root).balanced
