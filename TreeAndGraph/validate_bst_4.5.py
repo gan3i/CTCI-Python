@@ -58,11 +58,17 @@ def is_bst2(root: BinaryTreeNode) -> bool:
     return validate_bst(root, float("-inf"), float("+inf"))
 
 
+ #         6
+ #      /      \
+ #    3         9
+ #  /   \      /  \
+ # 1     4    7    10
+
 root = BinaryTreeNode(6)
 root.left = BinaryTreeNode(3)
 root.right = BinaryTreeNode(9)
 root.left.left = BinaryTreeNode(1)
-root.left.right = BinaryTreeNode(8)
+root.left.right = BinaryTreeNode(4)
 root.right.left = BinaryTreeNode(7)
 root.right.right = BinaryTreeNode(10)
 
