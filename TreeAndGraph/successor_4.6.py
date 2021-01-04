@@ -40,8 +40,8 @@ def successor1(node: BinaryTreeNode) -> Optional[BinaryTreeNode]:
         return None
     if node.right:
         return left_most_child(node.right)
-    curr : BinaryTreeNode= node
-    parent : Optional[BinaryTreeNode] = curr.parent
+    curr: BinaryTreeNode = node
+    parent: Optional[BinaryTreeNode] = curr.parent
     while parent and parent.left != curr:
         curr = parent
         parent = parent.parent
@@ -52,6 +52,7 @@ def left_most_child(node: BinaryTreeNode) -> Optional[BinaryTreeNode]:
     while node and node.left:
         node = node.left
     return node
+
 
 root = BinaryTreeNode(6, None)
 root.left = BinaryTreeNode(3, root)
