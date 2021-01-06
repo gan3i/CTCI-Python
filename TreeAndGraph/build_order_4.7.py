@@ -17,7 +17,7 @@ class Project:
 
     def increase_dependencies(self) -> None:
         self._dependencies += 1
-    
+
     def decrease_dependencies(self) -> None:
         self._dependencies -= 1
 
@@ -47,10 +47,9 @@ class Graph:
         start_node: Project = self.get_or_create_node(start)
         end_node: Project = self.get_or_create_node(end)
         start_node.add_neighbor(end_node)
-    
+
     def get_nodes(self):
         return self._nodes
-
 
 
 def find_build_order(projects: List[str], dependencies: List[List[str]]) -> List[str]:
@@ -85,19 +84,25 @@ def order_projects(projects: List[Project]) -> List[Project]:
     return order
 
 
-def add_non_dependent(order: List[Project], projects: List[Project],offset: int) ->int:
+def add_non_dependent(
+    order: List[Project], projects: List[Project], offset: int
+) -> int:
     for project in projects:
         if project.get_number_of_dependencies() == 0:
-            order[offset] = project 
+            order[offset] = project
             offset += 1
     return offset
 
 
-proj = ["f","d","a","h","g","k","i"]
-dep = [["f","d"],["f","a"],["d","a"],["g","a"],["a","h"],["g","h"],["k","i"]]
+proj = ["f", "d", "a", "h", "g", "k", "i"]
+dep = [
+    ["f", "d"],
+    ["f", "a"],
+    ["d", "a"],
+    ["g", "a"],
+    ["a", "h"],
+    ["g", "h"],
+    ["k", "i"],
+]
 
-print([proj.get_name() for proj in find_build_order(proj,dep)])
-    
-    
-
-
+print([proj.get_name() for proj in find_build_order(proj, dep)])
