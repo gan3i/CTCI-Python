@@ -93,8 +93,7 @@ def add_non_dependent(
             offset += 1
     return offset
 
-
-proj = ["f", "d", "a", "h", "g", "k", "i"]
+proj = ["f", "d", "a", "h", "g", "k", "i","z"]
 dep = [
     ["f", "d"],
     ["f", "a"],
@@ -103,6 +102,8 @@ dep = [
     ["a", "h"],
     ["g", "h"],
     ["k", "i"],
+    ["z", "g"],
+    ["g", "z"]
 ]
 
 print([proj.get_name() for proj in find_build_order(proj, dep)])

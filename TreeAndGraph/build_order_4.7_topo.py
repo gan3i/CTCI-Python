@@ -1,11 +1,11 @@
-from typing import List, DefaultDict
+from typing import List
 from collections import defaultdict
 from queue import Queue
 
 
 def get_build_order(projects: List[str], dependencies: List[List[str]]):
-    in_degree_map: DefaultDict[int] = defaultdict(int)
-    graph: DefaultDict[set] = defaultdict(set)
+    in_degree_map = defaultdict(int)
+    graph = defaultdict(set)
     build_graph(dependencies, graph, in_degree_map)
     q = Queue()
     for project in in_degree_map:
@@ -27,15 +27,12 @@ def get_build_order(projects: List[str], dependencies: List[List[str]]):
 
 def build_graph(dependencies, graph, in_degree_map):
     for edge in dependencies:
-        start = edge[0]
-        end = edge[1]
-
-        graph[start].add(end)
-        in_degree_map[start] += 0
-        in_degree_map[end] += 1
+        graph[edge[0]].add(edge[1])
+        in_degree_map[edge[0]] += 0
+        in_degree_map[edge[1]] += 1
 
 
-proj = ["f", "d", "a", "h", "g", "k", "i"]
+proj = ["f", "d", "a", "h", "g", "k", "i","z"]
 dep = [
     ["f", "d"],
     ["f", "a"],
@@ -44,6 +41,8 @@ dep = [
     ["a", "h"],
     ["g", "h"],
     ["k", "i"],
+    ["z", "g"],
+    ["g", "z"]
 ]
 
 print(get_build_order(proj, dep))
