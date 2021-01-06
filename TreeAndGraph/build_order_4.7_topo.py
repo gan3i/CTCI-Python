@@ -3,7 +3,7 @@ from collections import defaultdict
 from queue import Queue
 
 
-def get_build_order(projects: List[str], dependencies: List[List[str]]):
+def find_build_order(projects: List[str], dependencies: List[List[str]]):
     in_degree_map = defaultdict(int)
     graph = defaultdict(set)
     build_graph(dependencies, graph, in_degree_map)
@@ -32,7 +32,7 @@ def build_graph(dependencies, graph, in_degree_map):
         in_degree_map[edge[1]] += 1
 
 
-proj = ["f", "d", "a", "h", "g", "k", "i","z"]
+proj = ["f", "d", "a", "h", "g", "k", "i", "z"]
 dep = [
     ["f", "d"],
     ["f", "a"],
@@ -42,7 +42,7 @@ dep = [
     ["g", "h"],
     ["k", "i"],
     ["z", "g"],
-    ["g", "z"]
+    # ["g", "z"]
 ]
 
-print(get_build_order(proj, dep))
+print(find_build_order(proj, dep))

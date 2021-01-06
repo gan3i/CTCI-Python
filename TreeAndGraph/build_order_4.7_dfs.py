@@ -2,21 +2,21 @@ from typing import Set, List
 from collections import defaultdict
 
 
-def get_build_order(projects: List[str], dependencies: List[List[str]]):
+def find_build_order(projects: List[str], dependencies: List[List[str]]):
     visited = set()
     graph = build_graph(dependencies)
-    result: List[str] = [None] * len(projects)
-    end_index = [len(projects) - 1]
+    result: List[str] = []
     for project in projects:
         if project not in visited:
             visited.add(project)
             recursion_stack = set()
-            dfs(graph, project, visited, result, end_index, recursion_stack)
+            if not dfs(graph, project, visited, result, recursion_stack):
+                return None
 
-    return None if not result[0] else result
+    return list(reversed(result))
 
 
-def dfs(graph, project, visited, result, end_index, recursion_stack):
+def dfs(graph, project, visited, result, recursion_stack):
     if not project:
         return True
     recursion_stack.add(project)
@@ -25,11 +25,10 @@ def dfs(graph, project, visited, result, end_index, recursion_stack):
             return False
         if nhbr not in visited:
             visited.add(nhbr)
-            if not  dfs(graph, nhbr, visited, result, end_index, recursion_stack):
+            if not dfs(graph, nhbr, visited, result, recursion_stack):
                 return False
-    result[end_index[0]] = (project)
+    result.append(project)
     recursion_stack.remove(project)
-    end_index[0] -= 1
     return True
 
 
@@ -41,7 +40,8 @@ def build_graph(dependencies):
         graph[start].add(end)
     return graph
 
-proj = ["f", "d", "a", "h", "g", "k", "i","z"]
+
+proj = ["f", "d", "a", "h", "g", "k", "i", "z"]
 dep = [
     ["f", "d"],
     ["f", "a"],
@@ -51,7 +51,7 @@ dep = [
     ["g", "h"],
     ["k", "i"],
     ["z", "g"],
-    ["g", "z"]
+    # ["g", "z"]
 ]
 
-print(get_build_order(proj, dep))
+print(find_build_order(proj, dep))

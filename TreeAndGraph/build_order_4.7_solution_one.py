@@ -2,6 +2,48 @@ from __future__ import annotations
 from typing import List
 
 
+def find_build_order(projects: List[str], dependencies: List[List[str]]) -> List[str]:
+    graph: Graph = build_graph(projects, dependencies)
+    return order_projects(graph.get_nodes())
+
+
+def build_graph(projects: List[str], dependencies: List[List[str]]) -> Graph:
+    graph: Graph = Graph()
+    for project in projects:
+        graph.get_or_create_node(project)
+    for dependency in dependencies:
+        start: str = dependency[0]
+        end: str = dependency[1]
+        graph.add_edge(start, end)
+    return graph
+
+
+def order_projects(projects: List[Project]) -> List[Project]:
+    order: List[Project] = [None] * len(projects)
+    end_of_list: int = add_non_dependent(order, projects, 0)
+    to_be_processed = 0
+    while to_be_processed < len(order):
+        current: Project = order[to_be_processed]
+        if not current:
+            return None
+        children: List[Project] = current.get_children()
+        for child in children:
+            child.decrease_dependencies()
+        end_of_list = add_non_dependent(order, children, end_of_list)
+        to_be_processed += 1
+    return order
+
+
+def add_non_dependent(
+    order: List[Project], projects: List[Project], offset: int
+) -> int:
+    for project in projects:
+        if project.get_number_of_dependencies() == 0:
+            order[offset] = project
+            offset += 1
+    return offset
+
+
 class Project:
     def __init__(self, name: str):
         self._children: List[Project] = []
@@ -52,48 +94,7 @@ class Graph:
         return self._nodes
 
 
-def find_build_order(projects: List[str], dependencies: List[List[str]]) -> List[str]:
-    graph: Graph = build_graph(projects, dependencies)
-    return order_projects(graph.get_nodes())
-
-
-def build_graph(projects: List[str], dependencies: List[List[str]]) -> Graph:
-    graph: Graph = Graph()
-    for project in projects:
-        graph.get_or_create_node(project)
-    for dependency in dependencies:
-        start: str = dependency[0]
-        end: str = dependency[1]
-        graph.add_edge(start, end)
-    return graph
-
-
-def order_projects(projects: List[Project]) -> List[Project]:
-    order: List[Project] = [None] * len(projects)
-    end_of_list: int = add_non_dependent(order, projects, 0)
-    to_be_processed = 0
-    while to_be_processed < len(order):
-        current: Project = order[to_be_processed]
-        if not current:
-            return None
-        children: List[Project] = current.get_children()
-        for child in children:
-            child.decrease_dependencies()
-        end_of_list = add_non_dependent(order, children, end_of_list)
-        to_be_processed += 1
-    return order
-
-
-def add_non_dependent(
-    order: List[Project], projects: List[Project], offset: int
-) -> int:
-    for project in projects:
-        if project.get_number_of_dependencies() == 0:
-            order[offset] = project
-            offset += 1
-    return offset
-
-proj = ["f", "d", "a", "h", "g", "k", "i","z"]
+proj = ["f", "d", "a", "h", "g", "k", "i", "z"]
 dep = [
     ["f", "d"],
     ["f", "a"],
@@ -103,7 +104,7 @@ dep = [
     ["g", "h"],
     ["k", "i"],
     ["z", "g"],
-    ["g", "z"]
+    # ["g", "z"]
 ]
 
 print([proj.get_name() for proj in find_build_order(proj, dep)])
