@@ -1,33 +1,27 @@
-from typing import Set, List
 from collections import defaultdict
 
-
-def find_build_order(projects: List[str], dependencies: List[List[str]]):
-    visited = set()
+def find_build_order(projects, dependencies):
+    visited, order = set(), []
     graph = build_graph(dependencies)
-    result: List[str] = []
     for project in projects:
         if project not in visited:
             visited.add(project)
             recursion_stack = set()
-            if not dfs(graph, project, visited, result, recursion_stack):
+            if not dfs(graph, project, visited, order, recursion_stack):
                 return None
+    return list(reversed(order))
 
-    return list(reversed(result))
 
-
-def dfs(graph, project, visited, result, recursion_stack):
-    if not project:
-        return True
+def dfs(graph, project, visited, order, recursion_stack):
     recursion_stack.add(project)
     for nhbr in graph[project]:
         if nhbr in recursion_stack:
             return False
         if nhbr not in visited:
             visited.add(nhbr)
-            if not dfs(graph, nhbr, visited, result, recursion_stack):
+            if not dfs(graph, nhbr, visited, order, recursion_stack):
                 return False
-    result.append(project)
+    order.append(project)
     recursion_stack.remove(project)
     return True
 
@@ -35,8 +29,7 @@ def dfs(graph, project, visited, result, recursion_stack):
 def build_graph(dependencies):
     graph = defaultdict(set)
     for edge in dependencies:
-        start = edge[0]
-        end = edge[1]
+        start, end = edge[0], edge[1]
         graph[start].add(end)
     return graph
 
@@ -51,7 +44,7 @@ dep = [
     ["g", "h"],
     ["k", "i"],
     ["z", "g"],
-    # ["g", "z"]
+    ["h", "f"]
 ]
 
 print(find_build_order(proj, dep))

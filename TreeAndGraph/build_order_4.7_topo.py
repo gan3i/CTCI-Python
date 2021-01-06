@@ -1,27 +1,23 @@
-from typing import List
 from collections import defaultdict
 from queue import Queue
 
 
-def find_build_order(projects: List[str], dependencies: List[List[str]]):
+def find_build_order(projects, dependencies):
     in_degree_map = defaultdict(int)
-    graph = defaultdict(set)
+    graph, q = defaultdict(set), Queue()
     build_graph(dependencies, graph, in_degree_map)
-    q = Queue()
     for project in in_degree_map:
         if not in_degree_map[project]:
             q.put(project)
-    result: List[str] = []
-    visited = set()
+    result, visited  = [], set()
     while not q.empty():
         curr = q.get()
         result.append(curr)
         visited.add(curr)
         for nhbr in graph[curr]:
             in_degree_map[nhbr] -= 1
-            if in_degree_map[nhbr] == 0 and nhbr not in visited:
+            if not in_degree_map[nhbr] and nhbr not in visited:
                 q.put(nhbr)
-
     return None if len(result) != len(projects) else result
 
 
@@ -42,7 +38,7 @@ dep = [
     ["g", "h"],
     ["k", "i"],
     ["z", "g"],
-    # ["g", "z"]
+    ["g", "z"]
 ]
 
 print(find_build_order(proj, dep))
