@@ -32,7 +32,7 @@ def build_graph(dependencies, graph, in_degree_map):
         in_degree_map[start] +=0
         in_degree_map[end] +=1
 
-proj = ["f","d","a","h","g","k","e"]
+proj = ["f","d","a","h","g","k","i"]
 dep = [["f","d"],["f","a"],["d","a"],["g","a"],["a","h"],["g","h"],["k","i"]]
 
 print(get_build_order(proj,dep))
