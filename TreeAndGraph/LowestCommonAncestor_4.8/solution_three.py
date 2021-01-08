@@ -1,4 +1,3 @@
-
 class BinaryTreeNode:
     def __init__(self, data):
         self.data = data
@@ -9,8 +8,8 @@ class BinaryTreeNode:
 def common_ancestor(root, p, q):
     if not covers(root, p) or not covers(root, q):
         return None
-
     return ancestor_helper(root, p, q)
+
 
 def ancestor_helper(root, p, q):
     if not root or root == p or root == q:
@@ -26,6 +25,7 @@ def ancestor_helper(root, p, q):
         return ancestor_helper(root.left, p, q)
     else:
         return ancestor_helper(root.left, p, q)
+
 
 def covers(root, p):
     if not root:
@@ -44,7 +44,7 @@ def covers(root, p):
 #         5
 #          \
 #           90
-    
+
 root = BinaryTreeNode(6)
 
 root.left = BinaryTreeNode(3)
@@ -60,7 +60,6 @@ root.right.left = BinaryTreeNode(7)
 root.right.right = BinaryTreeNode(10)
 
 r = BinaryTreeNode(10)
-
 
 
 print(common_ancestor(root, root.left.left, r).data)

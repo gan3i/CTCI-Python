@@ -1,5 +1,5 @@
 # ask can each tree node have a pointer to it's parent node
-# is it guaranteed that nodes are present in tree. 
+# is it guaranteed that nodes are present in tree.
 # can one of the node be the lCA
 
 
@@ -10,6 +10,7 @@ class BinaryTreeNode:
         self.right = None
         self.parent = None
 
+
 def common_ancestor(p, q) -> int:
     delta = depth(p) - depth(q)
     # let p be the deeper node
@@ -18,18 +19,20 @@ def common_ancestor(p, q) -> int:
     delta = abs(delta)
     while delta:
         p = p.parent
-        delta -=1
+        delta -= 1
     while p != q:
         p, q = p.parent, q.parent
     return p
 
+
 def depth(node):
     depth = 0
     while node:
-        depth +=1
+        depth += 1
         node = node.parent
     return depth
-    
+
+
 #         6
 #      /      \
 #    3         9
@@ -39,7 +42,7 @@ def depth(node):
 #         5
 #          \
 #           90
-    
+
 root = BinaryTreeNode(6)
 
 root.left = BinaryTreeNode(3)
@@ -62,8 +65,4 @@ root.right.left.parent = root.right
 root.right.right = BinaryTreeNode(10)
 root.right.right.parent = root.right
 
-print(common_ancestor(root.left.left,x.right.right).data)
-
-    
-
-
+print(common_ancestor(root.left.left, x.right.right).data)

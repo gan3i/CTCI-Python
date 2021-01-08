@@ -1,5 +1,3 @@
-   
-   
 class BinaryTreeNode:
     def __init__(self, data):
         self.data = data
@@ -36,7 +34,7 @@ def get_sibling(node):
         return None
     parent = node.parent
     return parent.right if parent.left == node else parent.left
-    
+
 
 #         6
 #      /      \
@@ -47,7 +45,7 @@ def get_sibling(node):
 #         5
 #          \
 #           90
-    
+
 root = BinaryTreeNode(6)
 
 root.left = BinaryTreeNode(3)

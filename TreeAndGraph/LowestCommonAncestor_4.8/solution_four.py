@@ -1,4 +1,3 @@
-
 class BinaryTreeNode:
     def __init__(self, data):
         self.data = data
@@ -6,12 +5,10 @@ class BinaryTreeNode:
         self.right = None
 
 
-
 class Result:
-    def __init__(self,node,is_ancestor):
-        self.node: BinaryTreeNode  = node
+    def __init__(self, node, is_ancestor):
+        self.node: BinaryTreeNode = node
         self.is_ancestor: bool = is_ancestor
-
 
 
 def common_ancestor(root, p, q):
@@ -19,6 +16,7 @@ def common_ancestor(root, p, q):
     if result.is_ancestor:
         return result.node
     return None
+
 
 def common_ancestor_helper(root, p, q):
     if not root:
@@ -34,11 +32,10 @@ def common_ancestor_helper(root, p, q):
     if r_left.node and r_right.node:
         return Result(root, True)
     elif root == p or root == q:
-        is_ancestor = (r_left.node or r_right.node)
+        is_ancestor = r_left.node or r_right.node
         return Result(root, is_ancestor)
     else:
         return Result(r_left.node if r_left.node else r_right.node, False)
-
 
 
 #         6
@@ -50,7 +47,7 @@ def common_ancestor_helper(root, p, q):
 #         5
 #          \
 #           90
-    
+
 root = BinaryTreeNode(6)
 
 root.left = BinaryTreeNode(3)
