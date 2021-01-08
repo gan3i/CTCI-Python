@@ -10,8 +10,9 @@ class BinaryTreeNode:
         self.right = None
         self.parent = None
 
-def common_ancestor(p, q):
+def common_ancestor(p, q) -> int:
     delta = depth(p) - depth(q)
+    # let p be the deeper node
     if delta < 0:
         p, q = q, p
     delta = abs(delta)
