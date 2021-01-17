@@ -78,4 +78,5 @@ root.left.right = BinaryTreeNode(4)
 
 from pprint import pprint
 
-pprint(all_sequences(root))
+pprint([list(x) for x in all_sequences(root)])
+pprint(len(all_sequences(root)))
