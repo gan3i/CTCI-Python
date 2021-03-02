@@ -15,7 +15,7 @@ def is_permutation(a,b)->bool:
         return False
     
     # sort takes O(nlogn) time and comparison takes O(n), time complexity would be O(nlogn)
-    # space complexity is dependent on the sort algorithm used, if it is inplace then constant time else linear time
+    # space complexity is dependent on the sort algorithm used, if it is inplace then constant space else linear space
     if sort(a) != sort(b):
         return False
     else:

@@ -16,11 +16,11 @@ def has_duplicates(s):
 
     # this would be 256 for extended ascii
     # 65- 90 for capital alphabets, 
-    # 97-127 for lower case letters 
+    # 97-122 for lower case letters 
     char_set = [False for _ in range(128)] 
 
     # you can iterate through string character by character in python and c++
-    # bu in C# or java you would have to covert string to char array first
+    # but in C# or java you would have to covert string to char array first
     for c in s:
         if char_set[ord(c)] == True:
             return True

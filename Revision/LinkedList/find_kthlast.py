@@ -4,12 +4,12 @@ class Node():
         self.data = data
         self.next = None
 
-# recursive solution linear time and space complexity, 
+# recursive solution linear time and leniar space complexity, 
     # questions to ask
     # what's maximum length of linked list
     # what type of values are stored in linked list
-    # can k be greated than length of the linked list
-    # k = 0 is the last element or k = is the last element (in simple terms what's the range of k)
+    # can k be greater than length of the linked list
+    # k = 0 is the last element or k = 1 is the last element (in simple terms what's the range of k)
     # whether he wants node as retun value or value of the node as return value
     
 
@@ -21,7 +21,7 @@ class Node():
 def find_kthlast(head, k):
 
     if head == None:
-        return 
+        return None
     index = 0
     #to mimic the pass by reference so that all recursive stacks have the same value
     # this can also be done by creating a class with two prperties index and kth_value
