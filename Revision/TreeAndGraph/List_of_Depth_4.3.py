@@ -1,7 +1,7 @@
 # Questions to ask
 # is the binary tree balanced or can it skewed as well, this doesn't affect the solution but it's goot to ask.
 # what should be the out put format.
-# what all data should the linked list node hold? shoul I include depth of tree in each node?.
+# what all data should the linked list node hold? should I include depth of tree in each node?.
 # what type  of data does the tree hold? is it int/float/string/object?.
 # what is the range of values in tree?
 # sigly linked list or doubly linked list?

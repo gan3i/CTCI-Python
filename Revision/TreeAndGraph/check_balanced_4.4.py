@@ -1,5 +1,6 @@
 # Questions to ask
 # what is the definition of balanced? if not given
+# can there be duplicates in the tree. 
 from Nodes import BinaryTreeNode
 
 

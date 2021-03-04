@@ -2,7 +2,7 @@
 # 1. is it a sparse graph or a dense graph (this helps to pick the data structure of the graph)
 # 2. what should be the out put just a boolean indicating the path exists or not or the etire path
 # 3. is it a connected graph or disconnected graph
-# 4. directed or un directed
+# 4. directed or un-directed
 
 # dicuss about the data structure you have choosen for graph and the difference between BFS and DFS
 

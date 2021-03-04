@@ -8,7 +8,7 @@ class BinaryTreeNode:
 
 def common_ancestor(root, p, q):
     if not covers(root, p) or not covers(root, q):
-        return False
+        return None
     elif covers(p, q):
         return p
     elif covers(q, p):
